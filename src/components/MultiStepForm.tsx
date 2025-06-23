@@ -28,7 +28,7 @@ export default function MultiStepForm({
   onSubmit,
   isLoading = false,
   submitTitle = "Submit",
-  onValidationErrors
+  onValidationErrors,
 }: MultiStepFormProps) {
   const { pop } = useNavigation();
   const currentStep = steps[currentStepIndex];
@@ -96,12 +96,7 @@ export default function MultiStepForm({
               shortcut={{ modifiers: ["cmd"], key: "[" }}
             />
           )}
-          <Action
-            title="Cancel"
-            icon={Icon.XMarkCircle}
-            onAction={pop}
-            shortcut={{ modifiers: ["cmd"], key: "." }}
-          />
+          <Action title="Cancel" icon={Icon.XMarkCircle} onAction={pop} shortcut={{ modifiers: ["cmd"], key: "." }} />
         </ActionPanel>
       }
     >

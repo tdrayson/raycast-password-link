@@ -1,12 +1,4 @@
-import {
-  ActionPanel,
-  Action,
-  List,
-  showToast,
-  Toast,
-  Icon,
-  useNavigation,
-} from "@raycast/api";
+import { ActionPanel, Action, List, showToast, Toast, Icon, useNavigation } from "@raycast/api";
 import { useEffect, useState } from "react";
 import { apiClient, handleApiError } from "../lib/api-client";
 import { SecretRequest, Secret } from "../types";
@@ -85,11 +77,10 @@ export default function ListSecretRequests() {
   // Filter requests based on search text and filter
   const filteredRequests = requests.filter((request) => {
     const searchLower = searchText.toLowerCase();
-    const matchesSearch = (
+    const matchesSearch =
       request.id.toLowerCase().includes(searchLower) ||
       request.description.toLowerCase().includes(searchLower) ||
-      request.message.toLowerCase().includes(searchLower)
-    );
+      request.message.toLowerCase().includes(searchLower);
 
     const hasSecrets = (relatedSecretsMap[request.id] || []).length > 0;
 
@@ -112,10 +103,14 @@ export default function ListSecretRequests() {
         key={request.id}
         title={request.description}
         accessories={[
-          ...(hasSecrets ? [{
-            icon: Icon.Fingerprint,
-            tooltip: "Has related secret",
-          }] : []),
+          ...(hasSecrets
+            ? [
+                {
+                  icon: Icon.Fingerprint,
+                  tooltip: "Has related secret",
+                },
+              ]
+            : []),
         ]}
         actions={
           <ActionPanel>
@@ -129,16 +124,8 @@ export default function ListSecretRequests() {
                   });
                 }}
               />
-              <Action
-                title="Copy URL"
-                icon={Icon.CopyClipboard}
-                onAction={() => copyRequestUrl(request)}
-              />
-              <Action
-                title="Open in Web"
-                icon={Icon.Globe}
-                onAction={() => openRequest(request)}
-              />
+              <Action title="Copy URL" icon={Icon.CopyClipboard} onAction={() => copyRequestUrl(request)} />
+              <Action title="Open in Web" icon={Icon.Globe} onAction={() => openRequest(request)} />
               {hasSecrets && (
                 <Action
                   title="View Secret Details"
@@ -146,7 +133,7 @@ export default function ListSecretRequests() {
                   onAction={() => openRelatedSecret(request.id)}
                 />
               )}
-               <Action
+              <Action
                 title="Delete Request"
                 icon={Icon.Trash}
                 style={Action.Style.Destructive}

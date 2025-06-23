@@ -1,16 +1,20 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
-  "name": "tct-one-time-secret",
-  "title": "One Time Secret",
-  "description": "Share sensitive information with a one-time link using password.link",
+  "name": "password-link",
+  "title": "Password.link",
+  "description": "Create and manage encrypted one-time secrets with client-side encryption using password.link",
   "icon": "icon.png",
-  "author": "tdrayson",
+  "author": "taylor_drayson",
   "license": "MIT",
+  "categories": [
+    "Security"
+  ],
   "commands": [
     {
       "name": "new-secret",
       "title": "New Secret",
-      "description": "Create a new encrypted secret",
+      "subtitle": "password.link",
+      "description": "Create encrypted secrets with client-side encryption",
       "mode": "view",
       "arguments": [
         {
@@ -30,19 +34,22 @@
     {
       "name": "list-secrets",
       "title": "List Secrets",
-      "description": "View and manage your secrets",
+      "subtitle": "password.link",
+      "description": "View and manage your encrypted secrets",
       "mode": "view"
     },
     {
       "name": "new-secret-request",
       "title": "New Secret Request",
-      "description": "Create a secret request link",
+      "subtitle": "password.link",
+      "description": "Create request links for collecting secrets from others",
       "mode": "view"
     },
     {
       "name": "list-secret-requests",
       "title": "List Secret Requests",
-      "description": "View and manage your secret requests",
+      "subtitle": "password.link",
+      "description": "View and manage your secret request links",
       "mode": "view"
     }
   ],
@@ -52,14 +59,14 @@
       "type": "password",
       "required": true,
       "title": "Public API Key",
-      "description": "Your password.link public API key"
+      "description": "Your password.link public API key (found in Account Settings > API Keys)"
     },
     {
       "name": "privateKey",
       "type": "password",
       "required": true,
       "title": "Private API Key",
-      "description": "Your password.link private API key"
+      "description": "Your password.link private API key (found in Account Settings > API Keys)"
     },
     {
       "name": "baseUrl",

@@ -23,11 +23,16 @@ interface SecretConfigFormProps {
   onClearValidationError?: (field: string) => void;
 }
 
-export default function SecretConfigForm({ values, onChange, validationErrors, onClearValidationError }: SecretConfigFormProps) {
+export default function SecretConfigForm({
+  values,
+  onChange,
+  validationErrors,
+  onClearValidationError,
+}: SecretConfigFormProps) {
   const handleMessageChange = (message: string) => {
     // Clear validation error when user types
     if (validationErrors?.message && onClearValidationError) {
-      onClearValidationError('message');
+      onClearValidationError("message");
     }
     onChange({ ...values, message });
   };

@@ -126,18 +126,7 @@ New Secret "Login credentials" "username: admin, password: secret123"
 
 ## Custom Domains
 
-If you have a whitelabel password.link domain, simply enter it in the Base URL preference field. The extension will use your custom domain for all API calls and generated URLs.
-
-## Development
-
-This extension is built with:
-
-- TypeScript for type safety
-- React for the UI components
-- Raycast API for native integration
-- SJCL for client-side encryption
-- DRY coding principles and early returns
-- Comprehensive error handling
+If you have a whitelabel password.link domain, simply enter it in the Base URL preference field. The extension will use your custom domain for all generated URLs.
 
 ## Contributing
 

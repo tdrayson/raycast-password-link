@@ -1,12 +1,4 @@
-import {
-  ActionPanel,
-  Action,
-  Detail,
-  useNavigation,
-  showToast,
-  Toast,
-  Icon,
-} from "@raycast/api";
+import { ActionPanel, Action, Detail, useNavigation, showToast, Toast, Icon } from "@raycast/api";
 import { SecretRequest } from "../types";
 import { apiClient, handleApiError } from "../lib/api-client";
 import {
@@ -19,7 +11,7 @@ import {
   formatTime,
 } from "../lib/utils";
 import { useRelatedSecrets } from "../hooks/useRelatedData";
-import { copyUrl, openUrl } from "../lib/action-utils";
+import { openUrl } from "../lib/action-utils";
 import { CreateActions } from "../lib/action-panels";
 
 interface SecretRequestDetailProps {
@@ -31,10 +23,6 @@ export default function SecretRequestDetail({ request, onDelete }: SecretRequest
   const { pop, push } = useNavigation();
   const { relatedSecrets, isLoading: isLoadingSecrets } = useRelatedSecrets(request);
   const requestUrl = generateSecretRequestUrl(request.id);
-
-  const handleCopyUrl = async () => {
-    await copyUrl(requestUrl, "URL Copied", "Secret request URL copied to clipboard");
-  };
 
   const handleDeleteRequest = async () => {
     try {
@@ -77,9 +65,12 @@ export default function SecretRequestDetail({ request, onDelete }: SecretRequest
     }
 
     const secret = relatedSecrets[0]; // Only show the first match
-    const viewCountText = secret.view_times > 0 ?
-      (secret.max_views ? `Viewed (${secret.view_times}/${secret.max_views})` : "Viewed") :
-      "Not viewed";
+    const viewCountText =
+      secret.view_times > 0
+        ? secret.max_views
+          ? `Viewed (${secret.view_times}/${secret.max_views})`
+          : "Viewed"
+        : "Not viewed";
 
     return `\n\n## Related Secret\n\n### ${secret.message || secret.id}
 - **Created:** ${formatDate(secret.created_at)} ${formatTime(secret.created_at)}
@@ -114,41 +105,30 @@ ${request.send_to_email ? `**Note:** Created secrets will be automatically sent 
         <Detail.Metadata>
           <Detail.Metadata.Label title="Usage" text={usageText} />
           <Detail.Metadata.Label title="Expiration" text={expirationText} />
-          {request.send_to_email && (
-            <Detail.Metadata.Label title="Send to Email" text={request.send_to_email} />
-          )}
+          {request.send_to_email && <Detail.Metadata.Label title="Send to Email" text={request.send_to_email} />}
           <Detail.Metadata.Separator />
           {request.secret_description && request.secret_description !== request.secret_message && (
             <Detail.Metadata.Label title="Secret Description" text={request.secret_description} />
           )}
           <Detail.Metadata.Label title="Secret Message" text={request.secret_message || "None"} />
           <Detail.Metadata.Label title="Secret Expiration" text={request.secret_expiration || "No expiration"} />
-          <Detail.Metadata.Label title="Secret Max Views" text={request.secret_max_views ? request.secret_max_views.toString() : "Unlimited"} />
+          <Detail.Metadata.Label
+            title="Secret Max Views"
+            text={request.secret_max_views ? request.secret_max_views.toString() : "Unlimited"}
+          />
           <Detail.Metadata.Label title="Password Protected" text={request.secret_password ? "Yes" : "No"} />
         </Detail.Metadata>
       }
       actions={
         <ActionPanel>
           <ActionPanel.Section>
-            <Action
-              title="Open in Web"
-              icon={Icon.Globe}
-              onAction={() => openUrl(requestUrl)}
-            />
+            <Action title="Open in Web" icon={Icon.Globe} onAction={() => openUrl(requestUrl)} />
             {relatedSecrets.length > 0 && (
-              <Action
-                title="View Secret"
-                icon={Icon.Fingerprint}
-                onAction={handleOpenRelatedSecret}
-              />
+              <Action title="View Secret" icon={Icon.Fingerprint} onAction={handleOpenRelatedSecret} />
             )}
           </ActionPanel.Section>
           <ActionPanel.Section>
-            <Action
-              title="Back to List"
-              icon={Icon.ArrowLeft}
-              onAction={pop}
-            />
+            <Action title="Back to List" icon={Icon.ArrowLeft} onAction={pop} />
             <Action
               title="Delete Request"
               icon={Icon.Trash}

@@ -151,7 +151,7 @@ export default function NewSecretRequest() {
     }
     return {
       isValid: Object.keys(errors).length === 0,
-      errors
+      errors,
     };
   };
 
@@ -162,7 +162,7 @@ export default function NewSecretRequest() {
     }
     return {
       isValid: Object.keys(errors).length === 0,
-      errors
+      errors,
     };
   };
 
@@ -171,7 +171,7 @@ export default function NewSecretRequest() {
   };
 
   const clearValidationError = (field: string) => {
-    setValidationErrors(prev => {
+    setValidationErrors((prev) => {
       const newErrors = { ...prev };
       delete newErrors[field];
       return newErrors;
@@ -180,12 +180,7 @@ export default function NewSecretRequest() {
 
   // Show success page if we have success data
   if (successData) {
-    return (
-      <SuccessPage
-        secretUrl={successData.secretUrl}
-        secretId={successData.secretId}
-      />
-    );
+    return <SuccessPage secretUrl={successData.secretUrl} secretId={successData.secretId} />;
   }
 
   const steps = [

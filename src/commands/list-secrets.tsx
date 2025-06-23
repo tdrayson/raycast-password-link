@@ -1,20 +1,8 @@
-import {
-  ActionPanel,
-  Action,
-  List,
-  showToast,
-  Toast,
-  Icon,
-  useNavigation,
-  Color,
-} from "@raycast/api";
+import { ActionPanel, Action, List, showToast, Toast, Icon, useNavigation, Color } from "@raycast/api";
 import { useEffect, useState } from "react";
 import { apiClient, handleApiError } from "../lib/api-client";
 import { Secret, SecretRequest } from "../types";
-import {
-  formatDate,
-  formatViewCount,
-} from "../lib/utils";
+import { formatDate, formatViewCount } from "../lib/utils";
 import { CreateActions } from "../lib/action-panels";
 import { loadSecrets, findRelatedRequests } from "../lib/data-utils";
 
@@ -74,10 +62,7 @@ export default function ListSecrets() {
   // Filter secrets based on search text
   const filteredSecrets = secrets.filter((secret) => {
     const searchLower = searchText.toLowerCase();
-    return (
-      secret.id.toLowerCase().includes(searchLower) ||
-      secret.message?.toLowerCase().includes(searchLower)
-    );
+    return secret.id.toLowerCase().includes(searchLower) || secret.message?.toLowerCase().includes(searchLower);
   });
 
   const renderSecretItem = (secret: Secret) => {
@@ -93,10 +78,14 @@ export default function ListSecrets() {
         title={displayTitle}
         subtitle={formatDate(secret.created_at)}
         accessories={[
-          ...(hasRelatedRequests ? [{
-            icon: Icon.Document,
-            tooltip: "Has related secret request",
-          }] : []),
+          ...(hasRelatedRequests
+            ? [
+                {
+                  icon: Icon.Document,
+                  tooltip: "Has related secret request",
+                },
+              ]
+            : []),
           {
             tag: {
               value: hasViews ? viewCountText : "Not viewed",
@@ -142,11 +131,7 @@ export default function ListSecrets() {
   };
 
   return (
-    <List
-      isLoading={isLoading}
-      searchBarPlaceholder="Search secrets..."
-      onSearchTextChange={setSearchText}
-    >
+    <List isLoading={isLoading} searchBarPlaceholder="Search secrets..." onSearchTextChange={setSearchText}>
       {filteredSecrets.map(renderSecretItem)}
     </List>
   );

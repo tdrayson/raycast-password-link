@@ -43,12 +43,7 @@ export default function SecretSuccessPage({ secretUrl, secretId, onBack }: Secre
             shortcut={{ modifiers: ["cmd"], key: "o" }}
           />
           {onBack && (
-            <Action
-              title="Back"
-              icon={Icon.ArrowLeft}
-              onAction={onBack}
-              shortcut={{ modifiers: ["cmd"], key: "[" }}
-            />
+            <Action title="Back" icon={Icon.ArrowLeft} onAction={onBack} shortcut={{ modifiers: ["cmd"], key: "[" }} />
           )}
         </ActionPanel>
       }

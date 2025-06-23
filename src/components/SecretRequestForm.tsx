@@ -21,11 +21,16 @@ interface SecretRequestFormProps {
   onClearValidationError?: (field: string) => void;
 }
 
-export default function SecretRequestForm({ values, onChange, validationErrors, onClearValidationError }: SecretRequestFormProps) {
+export default function SecretRequestForm({
+  values,
+  onChange,
+  validationErrors,
+  onClearValidationError,
+}: SecretRequestFormProps) {
   const handleMessageChange = (message: string) => {
     // Clear validation error when user types
     if (validationErrors?.message && onClearValidationError) {
-      onClearValidationError('message');
+      onClearValidationError("message");
     }
     onChange({ ...values, message });
   };

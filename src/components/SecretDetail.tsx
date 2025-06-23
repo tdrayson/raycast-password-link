@@ -1,12 +1,4 @@
-import {
-  ActionPanel,
-  Action,
-  Detail,
-  useNavigation,
-  showToast,
-  Toast,
-  Icon,
-} from "@raycast/api";
+import { ActionPanel, Action, Detail, useNavigation, showToast, Toast, Icon } from "@raycast/api";
 import { Secret } from "../types";
 import { apiClient, handleApiError } from "../lib/api-client";
 import {
@@ -37,12 +29,14 @@ export default function SecretDetail({ secret, onDelete }: SecretDetailProps) {
       return "No views yet";
     }
 
-    return secret.views.map((view, index) => {
-      return `### ${index + 1}. Viewed on ${formatDate(view.viewed_at)}
+    return secret.views
+      .map((view, index) => {
+        return `### ${index + 1}. Viewed on ${formatDate(view.viewed_at)}
 - **Time:** ${formatTime(view.viewed_at)}
 - **IP Address:** \`${view.viewed_by_ip}\`
 - **User Agent:** \`${truncateText(view.viewed_by_user_agent, 80)}\`\n\n`;
-    }).join("");
+      })
+      .join("");
   };
 
   const handleDeleteSecret = async () => {
@@ -101,12 +95,8 @@ ${formatViewHistory()}${formatRelatedRequests()}
         <Detail.Metadata>
           <Detail.Metadata.Label title="Views" text={viewCountText} />
           <Detail.Metadata.Label title="Created" text={formatDate(secret.created_at)} />
-          {secret.expiration && (
-            <Detail.Metadata.Label title="Expires" text={`${secret.expiration} hours`} />
-          )}
-          {maxViewsText && (
-            <Detail.Metadata.Label title="Max Views" text={maxViewsText} />
-          )}
+          {secret.expiration && <Detail.Metadata.Label title="Expires" text={`${secret.expiration} hours`} />}
+          {maxViewsText && <Detail.Metadata.Label title="Max Views" text={maxViewsText} />}
           <Detail.Metadata.Separator />
           <Detail.Metadata.Label title="Password Protected" text={secret.password ? "Yes" : "No"} />
           <Detail.Metadata.Label title="View Button" text={secret.view_button ? "Enabled" : "Disabled"} />
@@ -130,11 +120,7 @@ ${formatViewHistory()}${formatRelatedRequests()}
             )}
           </ActionPanel.Section>
           <ActionPanel.Section>
-            <Action
-              title="Back to List"
-              icon={Icon.ArrowLeft}
-              onAction={pop}
-            />
+            <Action title="Back to List" icon={Icon.ArrowLeft} onAction={pop} />
             {onDelete && (
               <Action
                 title="Delete Secret"

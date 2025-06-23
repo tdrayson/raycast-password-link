@@ -1,13 +1,4 @@
-import {
-  ActionPanel,
-  Action,
-  Form,
-  showToast,
-  Toast,
-  Clipboard,
-  useNavigation,
-  LaunchProps,
-} from "@raycast/api";
+import { ActionPanel, Action, Form, showToast, Toast, Clipboard, useNavigation, LaunchProps } from "@raycast/api";
 import { useState } from "react";
 import { apiClient, handleApiError } from "../lib/api-client";
 import { prepareSecretData } from "../lib/encryption";
@@ -97,7 +88,6 @@ export default function NewSecret(props?: LaunchProps<{ arguments: NewSecretArgu
    * @param publicPart - Public password part
    */
   const handleSecretCreated = async (secretId: string, publicPart: string) => {
-
     const secretUrl = generateSecretUrl(secretId, publicPart);
 
     await Clipboard.copy(secretUrl);
@@ -119,7 +109,7 @@ export default function NewSecret(props?: LaunchProps<{ arguments: NewSecretArgu
               push(<ListSecrets />);
             });
           }}
-        />
+        />,
       );
     });
   };
@@ -135,9 +125,7 @@ export default function NewSecret(props?: LaunchProps<{ arguments: NewSecretArgu
     setIsLoading(true);
 
     try {
-      const { ciphertext, password_part_private, publicPart } = prepareSecretData(
-        formValues.secret
-      );
+      const { ciphertext, password_part_private, publicPart } = prepareSecretData(formValues.secret);
 
       // Auto-populate description with message if description is empty
       const description = formValues.description.trim() || formValues.message.trim();

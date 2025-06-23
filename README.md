@@ -10,6 +10,7 @@ A Raycast extension for creating and managing encrypted secrets using [password.
 - 🗑️ **Delete Secrets** - Remove secrets and secret requests when no longer needed
 - 🔧 **Custom Domains** - Support for whitelabel password.link domains
 - ⚡ **Fast & Secure** - Built with TypeScript and proper error handling
+- 🚀 **Quick Creation** - Create secrets directly from Raycast search with arguments
 
 ## Setup
 
@@ -33,7 +34,7 @@ A Raycast extension for creating and managing encrypted secrets using [password.
 
 The extension provides four main commands:
 
-- **New Secret**: Create encrypted secrets with various options
+- **New Secret**: Create encrypted secrets with various options or use arguments for quick creation
 - **List Secrets**: View and manage existing secrets
 - **New Secret Request**: Create request links for collecting secrets
 - **List Secret Requests**: Manage your secret request links
@@ -42,10 +43,24 @@ The extension provides four main commands:
 
 ### New Secret
 
-Create a new encrypted secret with options for:
+Create a new encrypted secret with two usage modes:
+
+#### Quick Creation with Arguments
+
+```
+New Secret "Your message" "secret content"
+```
+
+- **Message** (required): Message to show to the recipient
+- **Content** (required): The secret content to encrypt
+
+#### Full Form Mode
+
+Type `New Secret` without arguments to access the complete form with options for:
 
 - Secret content (required)
-- Description and message
+- Description (internal use)
+- Message (shown to recipient)
 - Expiration time (0-350 hours)
 - View button (show button instead of auto-display)
 - CAPTCHA protection
@@ -59,7 +74,7 @@ View all your secrets with:
 - Search functionality
 - Secret status (active/expired)
 - View count and creation date
-- Quick actions to open or copy URLs
+- Related secret request indicators
 - Delete functionality
 
 ### New Secret Request
@@ -80,12 +95,34 @@ Manage your secret request links with:
 - Quick actions to open or copy URLs
 - Delete functionality
 
+## Usage Examples
+
+### Quick Secret Creation
+
+```
+New Secret "Login credentials" "username: admin, password: secret123"
+```
+
+### Full Secret Creation
+
+1. Type `New Secret` and press Enter
+2. Fill out the form with your preferences
+3. Click "Create Secret" or press Cmd+S
+
+### Managing Secrets
+
+1. Type `List Secrets` to view all your secrets
+2. Search by description or message
+3. Click on any secret to view details
+4. Use the delete action to remove secrets
+
 ## Security
 
 - All secrets are encrypted client-side before being sent to the server
 - API keys are stored securely in Raycast preferences
 - Secrets are automatically deleted after being viewed (one-time use)
 - Support for additional security features like CAPTCHA and passwords
+- URLs include the public part for proper decryption
 
 ## Custom Domains
 
@@ -98,6 +135,7 @@ This extension is built with:
 - TypeScript for type safety
 - React for the UI components
 - Raycast API for native integration
+- SJCL for client-side encryption
 - DRY coding principles and early returns
 - Comprehensive error handling
 

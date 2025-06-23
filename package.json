@@ -4,7 +4,7 @@
   "title": "Password.link",
   "description": "Create and manage encrypted one-time secrets with client-side encryption using password.link",
   "icon": "icon.png",
-  "author": "tdrayson",
+  "author": "taylor_drayson",
   "license": "MIT",
   "categories": [
     "Security"

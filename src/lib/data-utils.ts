@@ -1,5 +1,5 @@
 import { Secret, SecretRequest } from "../types";
-import { apiClient, handleApiError } from "./api-client";
+import { apiClient } from "./api-client";
 import { validateConfig } from "./config";
 import { testSecrets, ENABLE_TEST_DATA } from "./test-data";
 import { showFailureToast } from "@raycast/utils";
@@ -25,7 +25,7 @@ export async function loadSecrets(): Promise<Secret[]> {
     }
     return secrets;
   } catch (error) {
-    await handleApiError(error, "Failed to load secrets");
+    await showFailureToast(error, { title: "Failed to load secrets" });
     return ENABLE_TEST_DATA ? (testSecrets as Secret[]) : [];
   }
 }
@@ -45,7 +45,7 @@ export async function loadSecretRequests(): Promise<SecretRequest[]> {
     const response = await apiClient.listSecretRequests();
     return response.data;
   } catch (error) {
-    await handleApiError(error, "Failed to load secret requests");
+    await showFailureToast(error, { title: "Failed to load secret requests" });
     return [];
   }
 }
